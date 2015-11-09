@@ -1,7 +1,5 @@
 package kr.ac.uos.ssl.gui;
 
-import kr.ac.uos.ssl.bean.ContainerManager;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,15 +11,15 @@ import java.awt.*;
 
 public class CustomPanel extends JPanel {
 
-    private ContainerManager containerManager;
+    private Image image;
 
     public void paint(Graphics g) {
         super.paint(g);
-        containerManager.moveBall(g);
+        g.drawImage(image, 0, 0, this);
     }
 
-    public void setContainerManager(ContainerManager containerManager) {
-        this.containerManager = containerManager;
+    public void setImage(Image image) {
+        this.image = image;
+        repaint();
     }
-
 }

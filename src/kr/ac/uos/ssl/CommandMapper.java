@@ -17,44 +17,29 @@ import java.util.Random;
 
 public class CommandMapper {
 
-    private final Random rand;
     private ContainerManager containerManager;
 
     public CommandMapper() {
-        rand = new Random();
     }
 
     public void makeBalls(int numberOfBalls, Color color) {
 
         if(containerManager.getBallGroups() != null){
             if(colorCheck(color)) {
-                for (BallContainer tempContainer : containerManager.getBallGroups()) {
-                    if(tempContainer.getColor() == color ) {
-                        for(int i = 0; i < numberOfBalls; i++){
-//                            tempContainer.makeBall(numberOfBalls);
-                            Ball ball = new Ball(rand.nextInt(Configuration.WIDTH), rand.nextInt(Configuration.HEIGHT));
-                            tempContainer.getBalls().add(ball);
-                        }
-                    }
-                }
+                containerManager.getBallGroups().stream().filter(tempContainer -> tempContainer.getColor() == color).forEach(tempContainer -> {
+                    tempContainer.makeBall(numberOfBalls);
+                });
             } else {
                 BallContainer ballContainer = new BallContainer();
                 ballContainer.init();
                 ballContainer.setColor(color);
-                ArrayList<Ball> ballList = new ArrayList<Ball>();
-                    for(int i = 0; i < numberOfBalls; i++){
-                        Ball ball = new Ball(rand.nextInt(Configuration.WIDTH), rand.nextInt(Configuration.HEIGHT));
-                        ballList.add(ball);
-                    }
-                ballContainer.setBalls(ballList);
-
+                ballContainer.makeBall(numberOfBalls);
                 containerManager.getBallGroups().add(ballContainer);
             }
         } else {
             BallContainer ballContainer = new BallContainer();
             ballContainer.init();
             containerManager.init();
-
             ballContainer.setColor(color);
             ballContainer.makeBall(numberOfBalls);
             containerManager.getBallGroups().add(ballContainer);
@@ -63,16 +48,12 @@ public class CommandMapper {
 
     private boolean colorCheck(Color color) {
         boolean colorBoolean = false;
-            for (BallContainer tempContainer : containerManager.getBallGroups()) {
-                if(tempContainer.getColor() == color ) {
-                    colorBoolean = true;
-                }
+        for (BallContainer tempContainer : containerManager.getBallGroups()) {
+            if(tempContainer.getColor() == color ) {
+                colorBoolean = true;
             }
+        }
         return colorBoolean;
-    }
-
-    public ContainerManager getContainerManager() {
-        return containerManager;
     }
 
     public void setContainerManager(ContainerManager containerManager) {

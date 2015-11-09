@@ -1,6 +1,5 @@
 package kr.ac.uos.ssl.gui;
 
-import kr.ac.uos.ssl.CommandMapper;
 import kr.ac.uos.ssl.configuration.Configuration;
 
 import javax.swing.*;
@@ -16,44 +15,33 @@ public class GraphicManager {
 
     private JFrame frame;
     private CustomPanel panel;
-    private CommandMapper cMapper;
 
-    public GraphicManager(CommandMapper cMapper) {
-        this.cMapper = cMapper;
+    public GraphicManager() {
     }
 
     public void init() {
-        makeFrame1();
-        makePanel1();
+        makeFrame();
+        makePanel();
         frame.add(panel);
         frame.pack();
         frame.setVisible(true);
     }
 
-    public void makePanel1() {
+    public void makePanel() {
         panel = new CustomPanel();
         panel.setBackground(Color.WHITE);
         panel.setPreferredSize(new Dimension(Configuration.WIDTH, Configuration.HEIGHT));
-        panel.setContainerManager(cMapper.getContainerManager());
     }
 
-    public void makeFrame1() {
+    public void makeFrame() {
         frame = new JFrame("Balls Balls Balls");
         frame.setBackground(Color.WHITE);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void setModel(CommandMapper cMapper) {
-        this.cMapper = cMapper;
-    }
-
     public JFrame getFrame() {
         return frame;
-    }
-
-    public void setFrame(JFrame frame) {
-        this.frame = frame;
     }
 
     public CustomPanel getPanel() {

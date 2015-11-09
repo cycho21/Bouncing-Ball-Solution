@@ -8,6 +8,7 @@ package kr.ac.uos.ssl.configuration;
 
 public class Configuration {
 
+    public static final int FRAME_DELAY = 15;
     public static final int WIDTH = 1280;
     public static final int HEIGHT = 800;
 
